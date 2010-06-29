@@ -1,0 +1,1 @@
+product[name]=iPod&product[price]=199&product[description]=An_awesome%20description_with%20spaces&product[stock]=30
