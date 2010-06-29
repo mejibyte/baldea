@@ -1,0 +1,15 @@
+api/public/javascripts/locales.js
+api/public/javascripts/common.js
+api/tmp
+api/tmp/*
+api/log
+api/log/*
+api/public/system/avatars/*
+.DS_Store
+client/public/javascripts/locales.js
+client/public/javascripts/common.js
+client/tmp
+client/tmp/*
+client/log
+client/log/*
+client/public/system/avatars/*
