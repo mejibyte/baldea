@@ -5,6 +5,7 @@ api/tmp/*
 api/log
 api/log/*
 api/public/system/avatars/*
+api/db/*.sqlite3
 .DS_Store
 client/public/javascripts/locales.js
 client/public/javascripts/common.js
@@ -13,3 +14,4 @@ client/tmp/*
 client/log
 client/log/*
 client/public/system/avatars/*
+client/db/*.sqlite3
