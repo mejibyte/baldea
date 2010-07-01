@@ -18,6 +18,14 @@
   <%=h @product.stock %>
 </p>
 
+<p>
+  <h2>Categories this product belongs to</h2>
+  <ul>
+    <% @product.categories.each do |category| %>
+      <%= content_tag :li, link_to(category.name, category_path(category)) %>
+    <% end %>
+  </ul>
+</p>
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>

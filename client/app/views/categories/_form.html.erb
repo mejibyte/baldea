@@ -1,0 +1,15 @@
+<%= f.error_messages %>
+
+<p>
+  <%= f.label :name %><br />
+  <%= f.text_field :name %>
+</p>
+
+<ul>
+<% Product.all.each do |product| %>
+  <li>
+    <%= check_box_tag "category[product_ids][]", product.id, @category.has_product?(product), :id => "category_products_ids_#{product.id}" %>
+    <%= product.name %> (<%= number_to_currency(product.price / 10.0) %>)
+  </li>
+<% end %>
+</ul>

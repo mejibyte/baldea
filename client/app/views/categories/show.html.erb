@@ -1,0 +1,24 @@
+<p>
+  <b>Name:</b>
+  <%=h @category.name %>
+</p>
+
+<p>
+  <b>Product ids:</b>
+  <%=h @category.product_ids.join(", ") %>
+</p>
+
+<p>
+  <h2>Products associated with this category</h2>
+  <ul>
+    <% @category.products.each do |product| %>
+    <li>
+      <%= link_to product.name, product_path(product) %>
+    </li>
+    <% end %>
+  </ul>
+</p>
+
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>

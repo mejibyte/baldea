@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.xml
   def index
-    @products = Product.all
+    @products = params[:ids].blank? ? Product.all : Product.find_all_by_id(params[:ids])
 
     respond_to do |format|
       format.html # index.html.erb
