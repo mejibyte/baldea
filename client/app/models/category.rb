@@ -3,7 +3,7 @@ class Category < ActiveRecord::Base
   serialize :product_ids, Array
   
   def products
-    Product.all(:params => { :ids => product_ids })
+    Product.all(:params => { :ids => product_ids, :filter => true })
   end
   
   def product_ids=(array)
