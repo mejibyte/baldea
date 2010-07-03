@@ -8,7 +8,7 @@ class Product < ActiveResource::Base
   def update_attributes(attributes)
     attributes.symbolize_keys!
     attributes.each do |name, value|
-      send(name, value) if self.respond_to?(name)
+      send("#{name}=", value) if self.respond_to?(name)
     end
     save
   end
