@@ -71,6 +71,28 @@ var userColumns =  [
     {header: "Stock", width: 50, sortable: true, dataIndex: 'stock', editor: new Ext.form.TextField({})}
 ];
 
+var filters = new Ext.ux.grid.GridFilters({
+    // encode and local configuration options defined previously for easier reuse
+    encode: false, // json encode the filter query
+    local: true,   // defaults to false (remote filtering)
+    filters: [{
+        type: 'numeric',
+        dataIndex: 'id'
+    }, {
+        type: 'string',
+        dataIndex: 'name'
+    }, {
+        type: 'numeric',
+        dataIndex: 'price'
+    }, {
+        type: 'string',
+        dataIndex: 'description'
+    }, {
+        type: 'numeric',
+        dataIndex: 'stock'
+    }]
+});
+
 
 Ext.onReady(function() {
     Ext.QuickTips.init();
@@ -90,7 +112,7 @@ Ext.onReady(function() {
         height: 500,
         width: 500,
         store: store,
-        plugins: [editor],
+        plugins: [editor, filters],
         columns : userColumns,
         tbar: [{
             text: 'Add',

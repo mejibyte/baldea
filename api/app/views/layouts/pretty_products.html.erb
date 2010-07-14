@@ -6,7 +6,22 @@
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title>Products: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'ext/resources/css/ext-all', 'ext/examples/shared/icons/silk', 'scaffold' %>
+  <%= stylesheet_link_tag "ext/examples/ux/gridfilters/css/GridFilters.css" %>
+  <%= stylesheet_link_tag "ext/examples/ux/gridfilters/css/RangeMenu.css" %>
+  
+  
   <%= javascript_include_tag 'ext/adapter/ext/ext-base-debug','ext/ext-all-debug', 'ext/examples/ux/ux-all-debug', 'ext/examples/shared/extjs/App', 'application' %>
+  
+  <%= javascript_include_tag "ext/examples/ux/gridfilters/menu/RangeMenu.js" %>
+	<%= javascript_include_tag "ext/examples/ux/gridfilters/menu/ListMenu.js" %>
+	<%= javascript_include_tag "ext/examples/ux/gridfilters/GridFilters.js" %>
+	<%= javascript_include_tag "ext/examples/ux/gridfilters/filter/Filter.js" %>
+	<%= javascript_include_tag "ext/examples/ux/gridfilters/filter/StringFilter.js" %>
+	<%= javascript_include_tag "ext/examples/ux/gridfilters/filter/DateFilter.js" %>
+	<%= javascript_include_tag "ext/examples/ux/gridfilters/filter/ListFilter.js" %>
+	<%= javascript_include_tag "ext/examples/ux/gridfilters/filter/NumericFilter.js" %>
+	<%= javascript_include_tag "ext/examples/ux/gridfilters/filter/BooleanFilter.js" %>
+	
 </head>
 <body>
 
