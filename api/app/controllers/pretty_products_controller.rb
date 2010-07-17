@@ -7,6 +7,13 @@ class PrettyProductsController < ApplicationController
     end
   end
 
+  def show
+    @product = Product.find(params[:id])
+    respond_to do |format|
+      format.json { render_success(@product) }
+    end
+  end
+
   def update
     @product = Product.find(params[:id])
     respond_to do |format|
@@ -28,7 +35,7 @@ class PrettyProductsController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     @product = Product.find(params[:id])
     @product.destroy

@@ -16,7 +16,9 @@ var reader = new Ext.data.JsonReader({
     {name: 'name', allowBlank: false},
     {name: 'price', allowBlank: false},
     {name: 'description', allowBlank: false},
-    {name: 'stock', allowBlank: false}
+    {name: 'stock', allowBlank: false},
+    {name: "color", allowBlank: true},
+    {name: "size", allowBlank: true},
 ]);
 
 // The new DataWriter component.
@@ -58,7 +60,6 @@ Ext.data.DataProxy.addListener('write', function(proxy, action, result, res, rs)
 // all exception events
 //
 Ext.data.DataProxy.addListener('exception', function(proxy, type, action, options, res) {
-    console.info(type);
     App.setAlert(false, "Something bad happend while executing " + action + ": " + res.message);
 });
 
@@ -127,7 +128,14 @@ Ext.onReady(function() {
             forceFit: true
         }
     });
-
+    
+    userGrid.on("rowclick", function(grid, index, event){
+      var id = grid.getStore().getAt(index).id;
+      //console.info(id);
+      fs.getForm().load({url:"pretty_products/"+id+".json", method:"GET", waitMsg:'Loading'});      
+      submit.enable();
+    });
+    
     /**
      * onAdd
      */
@@ -152,5 +160,106 @@ Ext.onReady(function() {
         }
         userGrid.store.remove(rec);
     }
+    
+    
+    
+    // turn on validation errors beside the field globally
+    Ext.form.Field.prototype.msgTarget = 'side';
+
+    var fs = new Ext.FormPanel({
+        frame: true,
+        title:'XML Form',
+        labelAlign: 'right',
+        labelWidth: 85,
+        width:500,
+        waitMsgTarget: true,
+
+        reader : reader,
+
+        items: [
+            new Ext.form.FieldSet({
+                title: 'Contact Information',
+                autoHeight: true,
+                defaultType: 'textfield',
+                items: [
+                    {
+                        fieldLabel: 'ID',
+                        emptyText: 'ID',
+                        name: 'id',
+                        disabled: true,
+                        width:370
+                    }, {
+                        fieldLabel: 'Name',
+                        emptyText: 'Name',
+                        name: 'name',
+                        width:370
+                    }, {
+                        fieldLabel: 'Price',
+                        emptyText: 'Price',
+                        name: 'price',
+                        width:370
+                    }, {
+                        fieldLabel: 'Description',
+                        emptyText: 'Description',
+                        name: 'description',
+                        xtype: "textarea",
+                        height: 120,
+                        width:370
+                    }, {
+                        fieldLabel: 'Stock',
+                        emptyText: 'Stock',
+                        name: 'stock',
+                        width:370
+                    },
+                                      
+                    new Ext.form.ComboBox({
+                      fieldLabel: 'Color',
+                      name:'color',
+                      store: new Ext.data.ArrayStore({
+                          fields: ['abbr', 'color'],
+                          data : [["Yellow", "Yellow"], ["Blue", "Blue"], ["Gray", "Gray"], ["Red", "Red"], ["Black", "Black"], ["White", "White"]],
+                      }),
+                      valueField:'abbr',
+                      displayField:'color',
+                      typeAhead: true,
+                      mode: 'local',
+                      triggerAction: 'all',
+                      emptyText:'Select a color...',
+                      selectOnFocus:true,
+                      width:370
+                   }),
+
+                    {
+                        fieldLabel: 'Size',
+                        emptyText: 'Size',
+                        name: 'size',
+                        width:370
+                    }, 
+                    
+
+                ]
+            })
+        ]
+    });
+
+    // explicit add
+    var submit = fs.addButton({
+        text: 'Submit',
+        disabled:true,
+        handler: function(){
+            fs.getForm().submit({url:'pretty_products.json', waitMsg:'Saving Data...', submitEmptyText: false});
+        }
+    });
+
+    fs.render('record-form');
+
+    fs.on({
+        actioncomplete: function(form, action){
+            if(action.type == 'load'){
+                submit.enable();
+            }
+        }
+    });
+    
 
 });
