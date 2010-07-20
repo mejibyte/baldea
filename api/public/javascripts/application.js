@@ -168,7 +168,7 @@ Ext.onReady(function() {
 
     var fs = new Ext.FormPanel({
         frame: true,
-        title:'XML Form',
+        title:'Product details',
         labelAlign: 'right',
         labelWidth: 85,
         width:500,
@@ -183,10 +183,8 @@ Ext.onReady(function() {
                 defaultType: 'textfield',
                 items: [
                     {
-                        fieldLabel: 'ID',
-                        emptyText: 'ID',
                         name: 'id',
-                        disabled: true,
+                        hidden: true,
                         width:370
                     }, {
                         fieldLabel: 'Name',
@@ -247,7 +245,26 @@ Ext.onReady(function() {
         text: 'Submit',
         disabled:true,
         handler: function(){
-            fs.getForm().submit({url:'pretty_products.json', waitMsg:'Saving Data...', submitEmptyText: false});
+          var id = fs.getForm().getValues().id;
+          
+          var data = {};
+          $.each(fs.getForm().getValues(), function(key, value){
+            data["data["+key+"]"]  = value;
+          });
+          
+          console.log(data);
+          $.ajax({ 
+            type: 'PUT',
+            url: "/pretty_products/"+id+".json",
+            data: data,
+            success : function(){
+              fs.getForm().load({url:"pretty_products/"+id+".json", method:"GET", waitMsg:'Loading'});
+              userGrid.getStore().reload();
+            }
+          });
+          
+          
+          //fs.getForm().submit({url:'pretty_products.json', waitMsg:'Saving Data...', submitEmptyText: false});
         }
     });
 
