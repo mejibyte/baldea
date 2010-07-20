@@ -252,7 +252,6 @@ Ext.onReady(function() {
             data["data["+key+"]"]  = value;
           });
           
-          console.log(data);
           $.ajax({ 
             type: 'PUT',
             url: "/pretty_products/"+id+".json",
