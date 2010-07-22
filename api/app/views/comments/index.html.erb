@@ -1,0 +1,31 @@
+<% if @comments.empty? %>
+  There are no comments for this product.
+<% else %>
+  <% content_tag :ul do %>
+    <% @comments.each do |comment| %>
+     <% content_tag :li do %>
+        <%= time_ago_in_words(comment.created_at) %> ago: <br />
+        <%= comment.content %>
+     <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div>
+  <p>Add a new comment:</p>
+  <% form_for @product.comments.build, :url => pretty_product_comments_path(@product) do |f| %>
+  <%= f.text_area :content %>
+  <%= f.submit "Add" %>
+  
+  <% end %>
+</div>
+
+<script>
+ $("form#new_comment").submit(function(e){
+   var data = $(this).serializeArray();
+   $.post("<%= pretty_product_comments_path(@product) %>", data, function(){
+      $("#comments-form").load("<%= pretty_product_comments_path(@product) %>");
+   });
+   e.preventDefault();
+ });
+</script>

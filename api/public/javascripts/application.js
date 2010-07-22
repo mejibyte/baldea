@@ -133,6 +133,7 @@ Ext.onReady(function() {
       var id = grid.getStore().getAt(index).id;
       //console.info(id);
       fs.getForm().load({url:"pretty_products/"+id+".json", method:"GET", waitMsg:'Loading'});      
+      $("#comments-form").load("pretty_products/"+id+"/comments");
       submit.enable();
     });
     
@@ -275,7 +276,21 @@ Ext.onReady(function() {
                 submit.enable();
             }
         }
-    });
-    
-
+    });  
 });
+
+Ext.onReady(function(){
+  var tabs = new Ext.TabPanel({
+      renderTo: 'tabs',
+      width:500,
+      activeTab: 0,
+      frame:true,
+      defaults:{autoHeight: true},
+      items:[
+          {contentEl:'record-form', title: 'Details'},
+          {contentEl:'comments-form', title: 'Comments'}
+      ]
+  });
+});
+
+
